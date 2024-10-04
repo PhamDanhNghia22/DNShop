@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+
 // Admin
 use App\Http\Controllers\admin\DashBoardController;
 use App\Http\Controllers\admin\AdminController;
@@ -13,7 +15,6 @@ use App\Http\Controllers\client\ClientController;
 use App\Http\Controllers\client\HomeController;
 use App\Http\Controllers\client\OrderController;
 use App\Http\Controllers\client\ProductBrandController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,12 +30,6 @@ use App\Http\Controllers\client\ProductBrandController;
 //     return view('welcome');
 // });
 
-// CLIENT
-// Route::middleware('auth')->group(function (){
-//     Route::get('/',[HomeController::class, 'index']);
-//     Route::get('/productDetail/{slug}',[HomeController::class, 'ProductDetail']);
-// });
-
 Route::get('/',[HomeController::class, 'index']);
 Route::get('/chi-tiet-san-pham/{slug}',[HomeController::class, 'ProductDetail']);
 Route::get('/thuong-hieu/{slug}',[ClientController::class, 'ProductBrand']);
@@ -42,6 +37,7 @@ Route::get('/shop',[ClientController::class, 'Allproduct']);
 Route::get('/gio-hang',[OrderController::class, 'Cart']);
 Route::get('/deletecart',[OrderController::class, 'deletcart']);
 Route::get('/them-gio-hang/{id}',[OrderController::class, 'AddToCart']);
+Route::post('/cap_nhat_gio_hang',[OrderController::class, 'update_cart'])->name("update_cart");
 Route::get('/checkout',[OrderController::class,'checkout']);
 Route::post('/addOrder',[OrderController::class, 'paypost']);
 Route::post('/create_payment',[OrderController::class, 'create_payment']);
@@ -77,6 +73,10 @@ Route::get('/admin/product/edit/{id}',[ProductController::class, 'edit']);
 Route::post('/admin/product/update/{id}',[ProductController::class, 'update']);
 Route::get('/admin/product/delete/{id}',[ProductController::class, 'destroy']);
 });
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

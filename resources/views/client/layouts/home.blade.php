@@ -13,9 +13,9 @@
           </div>
           <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
             <div class="hero-banner__content">
-              <h4>Shop is fun</h4>
-              <h1>Browse Our Premium Product</h1>
-              <p>Us which over of signs divide dominion deep fill bring they're meat beho upon own earth without morning over third. Their male dry. They are great appear whose land fly grass.</p>
+              <h4>Cửa hàng thật vui</h4>
+              <h1>Duyệt qua sản phẩm cao cấp của chúng tôi</h1>
+              <p>Thời trang là xu hướng không bao giờ ngừng thay đổi, và những đôi giày sẽ giúp cho thời trang của bạn được nâng cấp và có gu ăn mặc hơn. Chúng tôi ở đây sẽ giúp các bạn làm điều đó.</p>
               <a class="button button-hero" href="#">Browse Now</a>
             </div>
           </div>
@@ -227,4 +227,5 @@
     
 
   </main>
+  
  @endsection

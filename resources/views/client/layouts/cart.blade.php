@@ -55,11 +55,12 @@
                               </td>
                               <td>
                                   <div class="product_count">
-                                      <input type="text" name="qty" id="sst" maxlength="12" value="{{$details['quantity']}}" title="Quantity:"
+                                        <input type="hidden" name="id" id="idsp" value="{{$details['id_prod']}}">
+                                      <input type="text" name="qty" id="sst" min="1" max="3" value="{{$details['quantity']}}" title="Quantity:"
                                           class="input-text qty">
-                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                      <button 
                                           class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                      <button 
                                           class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
                                   </div>
                               </td>
@@ -180,6 +181,101 @@
 </div>
 
 </div> -->
+@push('script')
+
+<script >
+    $(document).ready(function(){
+        $(".increase").on("click",function(){
+            var result = $(this).closest("td").find("#sst").val();
+
+            if( !isNaN( result ) && result < 3){
+                result++;
+                $("#sst").val(result)
+                var qty = result
+            var id = $(this).closest("td").find("#idsp").val();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url:"{{ route('update_cart') }}",
+                    type:"POST",
+                    data:{id:id, qty:qty },
+                    success: function(res){
+                        if(res.status == 200){
+                            Swal.fire({
+                            title: res.mess,
+                            icon: "success"
+                            }).then(()=>{
+                                window.location.href="/gio-hang"
+                            })
+                            
+                            
+                        }
+                        // if(res){
+                        
+                        // }
+
+                           
+                        // });
+                        
+                        // }
+
+                    },error:function(err){
+                        alert(err)
+                    }
+                })
+
+            }else{
+                alert("Số lượng giỏ hàng không được quá 3")
+                result = 3;
+                $("#sst").val(result)
+            }
+            
+        })
+
+        $('.reduced').on("click", function(){
+            var result = $(this).closest("td").find("#sst").val();
+            
+            if( !isNaN( result ) && result > 1){
+                result--;
+                $("#sst").val(result)
+                var qty = result
+                var id = $(this).closest("td").find("#idsp").val();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url:"{{ route('update_cart') }}",
+                    type:"POST",
+                    data:{id:id, qty:qty },
+                    success: function(res){
+                        if(res.status == 200){
+                            Swal.fire({
+                            title: res.mess,
+                            icon: "success"
+                            }).then(()=>{
+                                window.location.href="/gio-hang"
+                            })
+                            
+                            
+                        }
+
+
+                    },error:function(err){
+                        alert(err)
+                    }
+                })
+            }else{
+                alert("Số lượng giỏ hàng phải lớn hơn 1")
+                result =1;
+                $("#sst").val(result)
+            }
+            
+        })
+    })
+</script>
+@endpush
 
 
 @endsection
+

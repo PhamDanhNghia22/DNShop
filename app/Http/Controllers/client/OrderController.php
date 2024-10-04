@@ -51,6 +51,23 @@ class OrderController extends Controller
         session()->put('cart', $cart);
         return redirect('/gio-hang')->with('message','Thêm giỏ hàng thành công');
     }
+    public function update_cart(Request $request){
+        $id = $request->id;
+        $qty = $request->qty;
+        $cart = session()->get('cart');
+        if(isset($cart[$id])){
+            $cart[$id]['quantity']=$qty;
+            session()->put('cart',$cart);
+            $mess = [
+                "status"=>200,
+                "mess"=>"Cập nhật thành công",
+            ];
+        }
+    
+        return response()->json($mess);
+
+
+    }
 
     public function deletcart(Request $request){
         session()->flush();
